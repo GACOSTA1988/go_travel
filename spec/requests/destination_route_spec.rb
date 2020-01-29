@@ -62,4 +62,19 @@ describe "destination routes", :type => :request do
     expect(JSON.parse(response.body).first['name']).to eq('test_name')
   end
 
+  it 'returns all destinations sorted by reviews' do
+    get "/destinations?by_reviews=true", headers: @hd
+    expect(JSON.parse(response.body).first['name']).to eq('test_name')
+  end
+
+  it 'returns all destinations sorted by average rating' do
+    get "/destinations?by_average=true", headers: @hd
+    expect(JSON.parse(response.body).first['name']).to eq('test_name')
+  end
+
+  it 'returns all reviews for a single country' do
+    get "/destinations?country=test_country", headers: @hd
+    expect(JSON.parse(response.body).first.first['body_text']).to eq('test_body_text')
+  end
+
 end

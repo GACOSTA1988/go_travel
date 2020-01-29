@@ -4,6 +4,13 @@ class DestinationsController < ApplicationController
   # GET /destinations
   def index
     @destinations = Destination.all
+    if params[:country]
+      @destinations = Destination.by_country(params[:country])
+    elsif params[:by_reviews]
+      @destinations = Destination.by_reviews
+    elsif params[:by_average]
+      @destinations = Destination.by_average
+    end
     render json: @destinations
   end
 
